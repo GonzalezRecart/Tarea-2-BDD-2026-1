@@ -6,7 +6,10 @@
 
 DROP INDEX IF EXISTS idx_orders_order_date_user_id;
 DROP INDEX IF EXISTS idx_order_items_order_id;
-
+DROP INDEX IF EXISTS idx_reviews_book_date_desc;
+DROP INDEX IF EXISTS idx_orders_order_date_order_id;
+DROP INDEX IF EXISTS idx_users_is_premium_user_id;
+DROP INDEX IF EXISTS idx_books_genre_price_pubyear;
 CREATE INDEX idx_reviews_book_date_desc
     ON reviews(book_id, review_date DESC);
 
