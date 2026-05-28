@@ -69,13 +69,11 @@ WHERE title LIKE 'Daugh%'
 ORDER BY title LIMIT 25;
 
 -- ===== 011 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-09-01' AND o.order_date < '2021-10-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-09-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 012 =====
 SELECT review_id, user_id, rating, review_text, review_date
@@ -126,13 +124,11 @@ SELECT COUNT(*) FROM (
 ) sub;
 
 -- ===== 020 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2024-06-01' AND o.order_date < '2024-07-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2024-06-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 021 =====
 SELECT review_id, user_id, rating, review_text, review_date
@@ -155,23 +151,18 @@ WHERE genre = 'reference'
 ORDER BY publication_year DESC, price ASC LIMIT 50;
 
 -- ===== 024 =====
-SELECT b.genre, DATE_TRUNC('month', o.order_date) AS month,
-       SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2022-12-01' AND o.order_date < '2023-12-01'
-GROUP BY b.genre, DATE_TRUNC('month', o.order_date)
+SELECT genre, month, SUM(revenue) AS revenue
+FROM monthly_book_revenue
+WHERE month >= '2022-12-01' AND month < '2023-12-01'
+GROUP BY genre, month
 ORDER BY month, revenue DESC;
-
 -- ===== 025 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2022-01-01' AND o.order_date < '2022-02-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2022-01-01'
+ORDER BY revenue DESC
+LIMIT 10;
+
 
 -- ===== 026 =====
 SELECT book_id, title, price
@@ -221,31 +212,25 @@ FROM users
 WHERE LOWER(email) = LOWER('PABLO.VARGAS195523@SHOP.NET');
 
 -- ===== 033 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2024-03-01' AND o.order_date < '2024-04-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2024-03-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 034 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-03-01' AND o.order_date < '2021-04-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-03-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 035 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-01-01' AND o.order_date < '2021-02-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-01-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 036 =====
 SELECT book_id, title, price
@@ -274,13 +259,11 @@ WHERE book_id = 15546
 ORDER BY review_date DESC LIMIT 20;
 
 -- ===== 040 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-09-01' AND o.order_date < '2021-10-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-09-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 041 =====
 SELECT book_id, title, price
@@ -294,13 +277,11 @@ FROM users
 WHERE email = 'hiro.quiroga95104@mail.com';
 
 -- ===== 043 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-01-01' AND o.order_date < '2021-02-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-01-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 044 =====
 SELECT user_id, is_premium
@@ -329,22 +310,18 @@ WHERE u.is_premium = TRUE
 ORDER BY o.order_date DESC;
 
 -- ===== 048 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2022-07-01' AND o.order_date < '2022-08-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2022-07-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 049 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2023-02-01' AND o.order_date < '2023-03-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2023-02-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 050 =====
 SELECT review_id, user_id, rating, review_text, review_date
@@ -371,13 +348,11 @@ FROM users
 WHERE email = 'Pablo.moreno158262@mail.com';
 
 -- ===== 054 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2024-09-01' AND o.order_date < '2024-10-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2024-09-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 055 =====
 SELECT user_id, is_premium, country
@@ -393,13 +368,11 @@ WHERE genre = 'self-help'
 ORDER BY publication_year DESC, price ASC LIMIT 50;
 
 -- ===== 057 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-11-01' AND o.order_date < '2021-12-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-11-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 058 =====
 SELECT book_id, title, price, publication_year
@@ -418,13 +391,11 @@ WHERE genre = 'self-help'
 ORDER BY publication_year DESC, price ASC LIMIT 50;
 
 -- ===== 060 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2024-08-01' AND o.order_date < '2024-09-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2024-08-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 061 =====
 UPDATE inventory
@@ -489,22 +460,18 @@ WHERE book_id = 21786
 ORDER BY review_date DESC LIMIT 20;
 
 -- ===== 071 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2023-09-01' AND o.order_date < '2023-10-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2023-09-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 072 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2024-10-01' AND o.order_date < '2024-11-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2024-10-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 073 =====
 SELECT user_id, is_premium, country
@@ -546,13 +513,12 @@ WHERE book_id = 9669
 ORDER BY review_date DESC LIMIT 20;
 
 -- ===== 079 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2023-06-01' AND o.order_date < '2023-07-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2023-06-01'
+ORDER BY revenue DESC
+LIMIT 10;
+
 
 -- ===== 080 =====
 SELECT review_id, user_id, rating, review_text, review_date
@@ -608,13 +574,11 @@ WHERE genre = 'science'
 ORDER BY publication_year DESC, price ASC LIMIT 50;
 
 -- ===== 088 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2022-01-01' AND o.order_date < '2022-02-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2022-01-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 089 =====
 SELECT user_id, is_premium, country
@@ -639,13 +603,11 @@ WHERE book_id = 27308
 ORDER BY review_date DESC LIMIT 20;
 
 -- ===== 093 =====
-SELECT b.book_id, b.title, SUM(oi.quantity * oi.unit_price) AS revenue
-FROM orders o
-JOIN order_items oi ON oi.order_id = o.order_id
-JOIN books b        ON b.book_id   = oi.book_id
-WHERE o.order_date >= '2021-03-01' AND o.order_date < '2021-04-01'
-GROUP BY b.book_id, b.title
-ORDER BY revenue DESC LIMIT 10;
+SELECT book_id, title, revenue
+FROM monthly_book_revenue
+WHERE month = '2021-03-01'
+ORDER BY revenue DESC
+LIMIT 10;
 
 -- ===== 094 =====
 SELECT o.order_id, o.user_id, o.order_date, o.total_amount
